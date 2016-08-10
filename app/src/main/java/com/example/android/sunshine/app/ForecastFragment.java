@@ -1,5 +1,7 @@
 package com.example.android.sunshine.app;
 
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,9 +13,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.text.format.Time;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -89,9 +93,11 @@ import java.util.List;
             fake_data.add("Friday-Rainy-90/90");
             fake_data.add("Saturday-Rainy-90/90");
 
+            // minor experimental change getActivity changed to getContext
+
              arrayAdapter = new ArrayAdapter<String>(
                     //the context (this, fragments parent activity)
-                    getActivity(),
+                    getContext(),
                     // ID of list item layout
                     R.layout.list_item_forecast,
                     //ID of  textview to fill up the data
@@ -101,6 +107,20 @@ import java.util.List;
 
             ListView listView = (ListView) rootView.findViewById(R.id.list_view_forecast);
             listView.setAdapter(arrayAdapter);
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+                public void onItemClick(AdapterView<?> adapterView,View view ,int i,long l){
+                    Context context = getContext();
+                    CharSequence text = arrayAdapter.getItem(i);
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+
+                    Intent detail = new Intent(getActivity(),DetailedActivity.class) ;
+                    startActivity(detail);
+                }
+            });
 
             return rootView;
         }
