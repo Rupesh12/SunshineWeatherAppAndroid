@@ -28,6 +28,8 @@ import java.net.URL;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by rupesh on 8/9/16.
@@ -37,7 +39,7 @@ import java.util.ArrayList;
      * A placeholder fragment containing a simple view.
      */
     public  class ForecastFragment extends Fragment {
-
+        ArrayAdapter<String> arrayAdapter ;
         public ForecastFragment() {
         }
         ////////////////
@@ -62,7 +64,7 @@ import java.util.ArrayList;
             int id = item.getItemId();
             if (id == R.id.action_refresh) {
                 FetchWeatherTask weatherTask = new FetchWeatherTask();
-                weatherTask.execute("9403"); // passing the postal code as the parameter
+                weatherTask.execute("14214,ny"); // passing the postal code as the parameter
                 return true;
             }
             return super.onOptionsItemSelected(item);
@@ -87,7 +89,7 @@ import java.util.ArrayList;
             fake_data.add("Friday-Rainy-90/90");
             fake_data.add("Saturday-Rainy-90/90");
 
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+             arrayAdapter = new ArrayAdapter<String>(
                     //the context (this, fragments parent activity)
                     getActivity(),
                     // ID of list item layout
@@ -180,9 +182,9 @@ import java.util.ArrayList;
                     resultStrs[i] = day + " - " + description + " - " + highAndLow;
                 }
 
-                for (String s : resultStrs) {
-                    Log.v(LOG_TAG, "Forecast entry: " + s);
-                }
+//                for (String s : resultStrs) {
+//                    Log.v(LOG_TAG, "Forecast entry: " + s);
+//                }
                 return resultStrs;
 
 
@@ -294,6 +296,14 @@ import java.util.ArrayList;
                 }
 
                 return null;
+            }
+
+            @Override
+            protected void onPostExecute(String[] strings) {
+                if(strings != null){
+                    arrayAdapter.clear();
+                    arrayAdapter.addAll(strings);
+                }
             }
         }
 
