@@ -5,4 +5,7 @@
     <string name="refresh">Refresh</string>
     <string name="action_settings">action_settings</string>
     <string name="setting">Setting</string>
+    <string name="Location">Location</string>
+    <string name="location" translatable="false">location</string>
+    <string name="defaultValue"  translatable="false">14214,ny</string>
 </resources>

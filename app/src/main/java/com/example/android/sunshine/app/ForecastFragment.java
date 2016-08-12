@@ -2,9 +2,11 @@ package com.example.android.sunshine.app;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -68,8 +70,7 @@ import java.util.List;
             // as you specify a parent activity in AndroidManifest.xml.
             int id = item.getItemId();
             if (id == R.id.action_refresh) {
-                FetchWeatherTask weatherTask = new FetchWeatherTask();
-                weatherTask.execute("14214,ny"); // passing the postal code as the parameter
+                updateWeather();
                 return true;
             }
 
@@ -77,8 +78,19 @@ import java.util.List;
             return super.onOptionsItemSelected(item);
         }
 
+        private void updateWeather(){
+            FetchWeatherTask weatherTask = new FetchWeatherTask();
+            SharedPreferences sharePref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            String location = sharePref.getString(getString(R.string.location),getString(R.string.defaultValue)) ;
+            weatherTask.execute(location); // passing the postal code as the parameter
 
+        }
 
+        @Override
+        public void onStart() {
+            super.onStart();
+            updateWeather();
+        }
 
         /////////////////
         @Override
@@ -89,13 +101,6 @@ import java.util.List;
 
             //////////////////////////////////////////////////////////////////
             ArrayList<String> fake_data = new ArrayList<String>() ;
-            fake_data.add("Today-Sunny-88/63");
-            fake_data.add("Tommorow-Foggy-70/46");
-            fake_data.add("Wednesday-Rainy-90/90");
-            fake_data.add("Thursday-Rainy-90/90");
-            fake_data.add("Friday-Rainy-90/90");
-            fake_data.add("Saturday-Rainy-90/90");
-
             // minor experimental change getActivity changed to getContext
 
              arrayAdapter = new ArrayAdapter<String>(
