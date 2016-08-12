@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.text.format.Time;
 import android.widget.Toast;
+import android.content.Intent ;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -71,6 +72,8 @@ import java.util.List;
                 weatherTask.execute("14214,ny"); // passing the postal code as the parameter
                 return true;
             }
+
+
             return super.onOptionsItemSelected(item);
         }
 
@@ -110,14 +113,14 @@ import java.util.List;
 
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
                 public void onItemClick(AdapterView<?> adapterView,View view ,int i,long l){
-                    Context context = getContext();
-                    CharSequence text = arrayAdapter.getItem(i);
-                    int duration = Toast.LENGTH_SHORT;
+                    //Context context = getContext();
+                    //CharSequence text = arrayAdapter.getItem(i);
+                    //int duration = Toast.LENGTH_SHORT;
 
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
-
-                    Intent detail = new Intent(getActivity(),DetailedActivity.class) ;
+                    //Toast toast = Toast.makeText(context, text, duration);
+                    //toast.show();
+                    String text = arrayAdapter.getItem(i) ;
+                    Intent detail = new Intent(getActivity(),DetailedActivity.class).putExtra(Intent.EXTRA_TEXT,text) ;
                     startActivity(detail);
                 }
             });

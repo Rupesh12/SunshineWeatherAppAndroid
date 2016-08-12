@@ -1,14 +1,15 @@
 package com.example.android.sunshine.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 public class DetailedActivity extends AppCompatActivity{
 
@@ -21,6 +22,7 @@ public class DetailedActivity extends AppCompatActivity{
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
+
     }
 
 
@@ -39,9 +41,12 @@ public class DetailedActivity extends AppCompatActivity{
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_refresh) {
+        if (id == R.id.action_settings)
+        {
+            startActivity(new Intent(this,SettingActivity.class));
             return true;
         }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -58,7 +63,11 @@ public class DetailedActivity extends AppCompatActivity{
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
 
+            Intent intent = getActivity().getIntent() ;
+            String weather = intent.getStringExtra(Intent.EXTRA_TEXT);
             View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
+            ((TextView) rootView.findViewById(R.id.text_activity)).setText(weather); ;
+
             return rootView;
         }
     }
