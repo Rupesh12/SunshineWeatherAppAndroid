@@ -8,4 +8,12 @@
     <string name="Location">Location</string>
     <string name="location" translatable="false">location</string>
     <string name="defaultValue"  translatable="false">14214,ny</string>
+    <string name="Tem_units">Temperature Units</string>
+    <string name="pref_unit">pref_unit</string>
+    <string name="metric">metric</string>
+    <string name="pref_unit_label_metric">Metric</string>
+    <string name="pref_unit_label_imperial">Imperial</string>
+    <string name="pref_unit_metric" translatable="false">Metric</string>
+    <string name="pref_unit_imperial" translatable="false">Imperial</string>
+
 </resources>

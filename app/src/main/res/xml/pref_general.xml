@@ -10,4 +10,11 @@
         android:singleLine="true"
         ></EditTextPreference>
 
+    <ListPreference
+        android:title="@string/Tem_units"
+        android:key="@string/pref_unit"
+        android:defaultValue="@string/metric"
+        android:entryValues="@array/pref_units_values"
+        android:entries="@array/pref_units_options"/>
+
 </PreferenceScreen>

@@ -42,6 +42,7 @@ public class SettingActivity extends PreferenceActivity
         // updated when the preference changes.
         // TODO: Add preference
     bindPreferenceSummaryToValue(findPreference(getString(R.string.location)));
+        bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_unit)));
     }
 
 

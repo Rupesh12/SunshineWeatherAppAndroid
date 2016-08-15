@@ -145,7 +145,17 @@ import java.util.List;
                 return shortenedDateFormat.format(time);
             }
 
-            private String formatHighLows(double high, double low) {
+            private String formatHighLows(double high, double low, String unitType) {
+                if(unitType.equals(getString(R.string.pref_unit_imperial))){
+                    // updating the value to the corresponding values in Frhrenheit
+
+                    high = (high * 1.8) + 32 ;
+                    low = (low * 1.8) + 32 ;
+                } else if(!unitType.equals(getString(R.string.pref_unit_metric))){
+                    // if the unit is neither metric nor imperial log an error
+                    Log.d(LOG_TAG,"Unit not found "+ unitType) ;
+                }
+
                 // For presentation, assume the user doesn't care about tenths of a degree.
                 long roundedHigh = Math.round(high);
                 long roundedLow = Math.round(low);
@@ -178,6 +188,11 @@ import java.util.List;
                 dayTime = new Time();
 
                 String[] resultStrs = new String[numDays];
+
+                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                String unitType = sharedPref.getString(getString(R.string.pref_unit),getString(R.string.pref_unit_metric));
+
+
                 for(int i = 0; i < weatherArray.length(); i++) {
                     // For now, using the format "Day, description, hi/low"
                     String day;
@@ -205,7 +220,7 @@ import java.util.List;
                     double high = temperatureObject.getDouble(OWM_MAX);
                     double low = temperatureObject.getDouble(OWM_MIN);
 
-                    highAndLow = formatHighLows(high, low);
+                    highAndLow = formatHighLows(high, low, unitType);
                     description = toCamelCase(description);
                     resultStrs[i] = day + " - " + description + " - " + highAndLow;
                 }
