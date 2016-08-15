@@ -15,5 +15,7 @@
     <string name="pref_unit_label_imperial">Imperial</string>
     <string name="pref_unit_metric" translatable="false">Metric</string>
     <string name="pref_unit_imperial" translatable="false">Imperial</string>
+    <string name="action_map">action_map</string>
+    <string name="actioin_share">Share</string>
 
 </resources>

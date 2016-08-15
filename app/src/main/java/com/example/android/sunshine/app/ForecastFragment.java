@@ -74,8 +74,35 @@ import java.util.List;
                 return true;
             }
 
+            /////////////////
 
+            if(id == R.id.action_map){
+                openPreferredLocationInMap();
+                return true ;
+            }
+
+            ////////////////////
             return super.onOptionsItemSelected(item);
+        }
+
+        private void openPreferredLocationInMap() {
+            SharedPreferences sharePref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            String location = sharePref.getString(getString(R.string.location),getString(R.string.defaultValue));
+
+
+            // Magic for getting the geo cordinates :)
+            Uri geoLocation = Uri.parse("geo:0,0?").buildUpon().appendQueryParameter("q",location).build();
+
+            // launching intent
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(geoLocation);
+
+            if(intent.resolveActivity(getActivity().getPackageManager()) != null){
+                startActivity(intent);
+            }
+            else {
+                 Log.d("ForecastFragment.java", "Couldn't call " + location + ", no receiving apps installed!");
+            }
         }
 
         private void updateWeather(){
