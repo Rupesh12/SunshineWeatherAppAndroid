@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.android.sunshine.app.sync.SunshineSyncAdapter;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,7 +25,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-
+import com.example.android.sunshine.app.sync.SunshineSyncAdapter;
 public class MainActivity extends AppCompatActivity implements ForecastFragment.Callback {
 
     private final String LOG_TAG = MainActivity.class.getSimpleName() ;
@@ -82,6 +84,8 @@ public class MainActivity extends AppCompatActivity implements ForecastFragment.
         .findFragmentById(R.id.fragment_forecast));
         forecastFragment.setmUseTodayLayout(!mTwoPane);
 
+        SunshineSyncAdapter.initializeSyncAdapter(this);
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -92,22 +96,7 @@ public class MainActivity extends AppCompatActivity implements ForecastFragment.
 
 
 
-    private void openPreferredLocationInMap() {
-        String location = Utility.getPreferredLocation(this);
 
-        Uri geoLocation = Uri.parse("geo:0,0?").buildUpon()
-                .appendQueryParameter("q", location)
-                .build();
-
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(geoLocation);
-
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
-        } else {
-            Log.d(LOG_TAG, "Couldn't call " + location + ", no receiving apps installed!");
-        }
-    }
 
     @Override
     protected void onPause() {
@@ -159,10 +148,7 @@ public class MainActivity extends AppCompatActivity implements ForecastFragment.
             return true;
         }
 
-        if (id == R.id.action_map) {
-            openPreferredLocationInMap();
-            return true;
-        }
+
         return super.onOptionsItemSelected(item);
     }
 

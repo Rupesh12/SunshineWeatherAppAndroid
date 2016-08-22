@@ -131,20 +131,20 @@ public class ForecastAdapter extends CursorAdapter {
         //Find textView and set weather forecast on it
 
         viewHolder.descriptionView.setText(description);
-
+        viewHolder.iconView.setContentDescription(description);
         // Read user preference for metric or imperial temperature units
         boolean isMetric = Utility.isMetric(context);
 
         //Read high temperature from the cursor
         double high = cursor.getDouble(ForecastFragment.COL_WEATHER_MAX_TEMP);
 
-        viewHolder.highTempView.setText(Utility.formatTemperature(context,high, isMetric));
+        viewHolder.highTempView.setText(Utility.formatTemperature(context,high));
 
 
         // Read Low from cursor
         double low = cursor.getDouble(ForecastFragment.COL_WEATHER_MIN_TEMP);
 
-        viewHolder.lowTempView.setText(Utility.formatTemperature(context,low,isMetric));
+        viewHolder.lowTempView.setText(Utility.formatTemperature(context,low));
 
 
 
