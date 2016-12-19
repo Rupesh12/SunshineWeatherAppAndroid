@@ -29,7 +29,7 @@ import android.widget.Toast;
 import android.content.Intent ;
 
 import com.example.android.sunshine.app.data.WeatherContract;
-import com.example.android.sunshine.app.service.SunshineService;
+import com.example.android.sunshine.app.sync.*;
 import com.example.android.sunshine.app.sync.SunshineSyncAdapter;
 
 import org.json.JSONArray;
@@ -119,9 +119,7 @@ import java.util.List;
 
         @Override
         public boolean onOptionsItemSelected(MenuItem item) {
-            // Handle action bar item clicks here. The action bar will
-            // automatically handle clicks on the Home/Up button, so long
-            // as you specify a parent activity in AndroidManifest.xml.
+            // Handle action bar item clicks here.
             int id = item.getItemId();
 //            if (id == R.id.action_refresh) {
 //                updateWeather();
